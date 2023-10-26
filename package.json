@@ -16,10 +16,13 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "axios": "^1.5.1",
+    "lodash.debounce": "^4.0.8",
     "vue": "^3.3.4"
   },
   "devDependencies": {
     "@iconify/vue": "^4.1.1",
+    "@types/lodash.debounce": "^4.0.8",
     "@types/node": "^20.8.9",
     "@vitejs/plugin-vue": "^4.2.3",
     "autoprefixer": "^10.4.16",
