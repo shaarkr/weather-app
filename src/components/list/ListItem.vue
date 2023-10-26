@@ -29,5 +29,8 @@
   }
   const props = defineProps<Props>();
 
-  const region = computed(() => `${props.location.region}, ${props.location.country}`);
+  const region = computed(() => {
+    const { region, country } = props.location;
+    return `${region}${region ? ', ' : ''}${country}`;
+  });
 </script>
