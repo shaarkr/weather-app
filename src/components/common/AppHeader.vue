@@ -16,13 +16,24 @@
           height="16" />
       </div>
       <input
-        type="text"
-        name="price"
-        id="price"
+        type="search"
+        name="location"
+        id="location"
         class="block w-full rounded-md border-0 py-1.5 pl-8 pr-6 bg-gray-50 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-500 focus:ring-primary sm:text-sm sm:leading-6"
-        placeholder="Search location" />
+        placeholder="Search location"
+        v-model="query"
+        @keyup="onSearch" />
     </div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  import { ref } from 'vue';
+
+  const query = ref('');
+  const emits = defineEmits(['search']);
+
+  const onSearch = () => {
+    emits('search', query.value);
+  };
+</script>
