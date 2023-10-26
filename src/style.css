@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  line-height: 1.5;
+  @apply font-primary;
+}
+
+#app {
+  height: 100%;
+}
