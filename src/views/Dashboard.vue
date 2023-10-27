@@ -30,7 +30,8 @@
           <ListItem
             v-for="location in locations"
             :key="location.id"
-            :location="location" />
+            :location="location"
+            @click="fetchWeatherInfo(location.id)" />
         </section>
       </template>
 
@@ -39,14 +40,53 @@
         <p class="font-medium">Enter a location to find the weather information</p>
       </error-message>
     </div>
+
+    <Teleport to="body">
+      <!-- use the modal component, pass in the prop -->
+      <app-drawer :show="open" @close="open = false">
+        <div class="flex items-center justify-center">
+          <error-message
+            v-if="weatherLoading"
+            class="text-secondary opacity-60 animate-spin">
+            <icon icon="solar:refresh-circle-broken" height="64" />
+          </error-message>
+
+          <error-message v-else-if="weatherError" class="text-red-400">
+            <icon icon="tdesign:search-error" height="128" />
+            <p class="font-medium">{{ weatherError }}</p>
+          </error-message>
+
+          <weather-widget v-if="weather" :weather="weather" />
+        </div>
+      </app-drawer>
+    </Teleport>
   </div>
 </template>
 
 <script setup lang="ts">
-  import ListItem from '@/components/list/ListItem.vue';
   import AppHeader from '@/components/common/AppHeader.vue';
+  import AppDrawer from '@/components/common/AppDrawer.vue';
   import ErrorMessage from '@/components/common/ErrorMessage.vue';
+  import ListItem from '@/components/list/ListItem.vue';
+  import WeatherWidget from '@/components/WeatherWidget.vue';
   import { useSearchApi } from '@/composables/useSearchApi';
+  import { useWeatherApi } from '@/composables/useWeatherApi';
+  import { ref } from 'vue';
 
   const { data: locations, error, loading, fetch: findLocations } = useSearchApi();
+
+  const {
+    data: weather,
+    weatherError,
+    weatherLoading,
+    loadWeatherInfo,
+  } = useWeatherApi();
+
+  const open = ref(true);
+
+  function fetchWeatherInfo(id: number) {
+    const query = `id:${id}`;
+    loadWeatherInfo(query);
+    open.value = true;
+  }
 </script>
