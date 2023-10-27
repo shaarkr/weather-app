@@ -2,6 +2,8 @@
 
 Weather App is a Vue 3 application that empowers you to effortlessly monitor weather conditions in various cities. This application fetches real-time weather data from a mock API and renders it with Vue 3 and Tailwind CSS, providing a user-friendly and responsive interface.
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/13cabc4d-5c9e-4064-b638-a0a4f71f0279/deploy-status)](https://app.netlify.com/sites/weather-app-wm/deploys)
+
 ## Table of Contents
 
 - [Requirements](#requirements)

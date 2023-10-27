@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "engines": {
-    "node": "v18.12.1"
+    "node": "^18"
   },
   "type": "module",
   "license": "MIT",
