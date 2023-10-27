@@ -12,6 +12,10 @@
           }}</span>
         </p>
       </div>
+
+      <span v-if="lastUpdatedAt" class="ml-2 text-sm font-normal text-zinc-500">{{
+        lastUpdatedAt
+      }}</span>
     </div>
 
     <div
@@ -114,11 +118,23 @@
 <script setup lang="ts">
   import WeatherMetric from '@/components/WeatherMetric.vue';
   import { Response } from '@/composables/useWeatherApi';
+  import { computed } from 'vue';
+  import dayjs from 'dayjs';
+  import relativeTime from 'dayjs/plugin/relativeTime';
+  dayjs.extend(relativeTime);
 
   interface Props {
     weather?: Response;
   }
-  defineProps<Props>();
+  const props = defineProps<Props>();
+
+  const lastUpdatedAt = computed(() => {
+    const { weather } = props;
+    if (!weather) return null;
+
+    const localTime = dayjs(weather.location.localtime);
+    return dayjs(weather.current.last_updated).from(localTime);
+  });
 </script>
 
 <style scoped></style>

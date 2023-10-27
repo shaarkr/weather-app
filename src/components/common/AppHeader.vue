@@ -3,8 +3,8 @@
     class="flex flex-col md:flex-row gap-6 md:items-center justify-between pb-8 border-b border-gray-100">
     <!-- Date -->
     <div>
-      <p class="text-xl text-zinc-800 font-bold">October 2023</p>
-      <p class="text-xs text-zinc-400">Thursday, Oct 26, 2023</p>
+      <p class="text-xl text-zinc-800 font-bold">{{ currentMonth }}</p>
+      <p class="text-xs text-zinc-400">{{ currentDate }}</p>
     </div>
 
     <!-- Search Input -->
@@ -28,10 +28,14 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue';
+  import { computed, ref } from 'vue';
+  import dayjs from 'dayjs';
 
   const query = ref('');
   const emits = defineEmits(['search']);
+
+  const currentMonth = computed(() => dayjs().format('MMMM, YYYY'));
+  const currentDate = computed(() => dayjs().format('dddd, MMM D, YYYY'));
 
   const onSearch = () => {
     emits('search', query.value);
