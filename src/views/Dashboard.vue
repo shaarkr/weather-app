@@ -44,7 +44,7 @@
     <Teleport to="body">
       <!-- use the modal component, pass in the prop -->
       <app-drawer :show="open" @close="open = false">
-        <div class="flex items-center justify-center">
+        <div class="flex items-center justify-center h-full">
           <error-message
             v-if="weatherLoading"
             class="text-secondary opacity-60 animate-spin">
@@ -56,7 +56,7 @@
             <p class="font-medium">{{ weatherError }}</p>
           </error-message>
 
-          <weather-widget v-if="weather" :weather="weather" />
+          <weather-widget v-else-if="weather" :weather="weather" />
         </div>
       </app-drawer>
     </Teleport>
@@ -82,7 +82,7 @@
     loadWeatherInfo,
   } = useWeatherApi();
 
-  const open = ref(true);
+  const open = ref(false);
 
   function fetchWeatherInfo(id: number) {
     const query = `id:${id}`;
