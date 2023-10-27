@@ -1,6 +1,7 @@
 import { ref } from 'vue';
 import http from '@/utils/http';
-import { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
+import { globalErrorHandler } from '@/utils/global-error-handler';
 
 export function useFetch<T>() {
   const data = ref<T | null>(null);
@@ -18,7 +19,11 @@ export function useFetch<T>() {
       response.value = result;
       data.value = result.data;
     } catch (err) {
-      error.value = err;
+      if (err instanceof AxiosError) {
+        error.value = globalErrorHandler(err);
+      } else {
+        error.value = err;
+      }
       console.error(err);
     } finally {
       loading.value = false;

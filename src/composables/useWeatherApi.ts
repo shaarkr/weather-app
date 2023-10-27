@@ -54,11 +54,6 @@ export function useWeatherApi() {
   function loadWeatherInfo(query?: string) {
     error.value = null;
 
-    if (!query) {
-      error.value = 'Enter a location';
-      return;
-    }
-
     const url = `/current.json?q=${query}`;
     fetch(url);
   }
